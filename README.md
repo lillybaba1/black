@@ -13,10 +13,12 @@ African youth.
 
 ## Running Locally
 
-1. Start the backend (see `backend/README.md`).
+1. Start the backend (see `backend/README.md`). Set `SECRET_KEY` in your
+   environment to secure JWT tokens.
 2. Start the frontend (see `frontend/README.md`).
-3. Run the Streamlit demo with `streamlit run streamlit_app.py` (install
-   dependencies from `streamlit_requirements.txt`).
+3. Run the Streamlit demo from the project root:
+   `streamlit run streamlit_app.py` or `python -m streamlit run streamlit_app.py`
+   after installing dependencies from `streamlit_requirements.txt`.
 
 This project is highly experimental and only demonstrates a few features of the
 planned platform.

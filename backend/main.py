@@ -4,7 +4,9 @@ from pydantic import BaseModel
 from typing import List
 import uuid
 import jwt
+import os
 from datetime import datetime, timedelta
+from passlib.context import CryptContext
 
 # In-memory stores (for demo purposes)
 users_db = {}
@@ -12,7 +14,8 @@ groups_db = {}
 posts_db = []
 chats = {}
 
-SECRET_KEY = "SECRET"  # Replace with env var in production
+SECRET_KEY = os.getenv("SECRET_KEY", "SECRET")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 app = FastAPI(title="Uni-One Backend")
 
@@ -45,13 +48,15 @@ class Token(BaseModel):
 def register(user: User):
     if user.username in users_db:
         raise HTTPException(status_code=400, detail="User already exists")
+    hashed = pwd_context.hash(user.password)
+    user.password = hashed
     users_db[user.username] = user
     return {"msg": "registered"}
 
 @app.post("/token", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = users_db.get(form_data.username)
-    if not user or user.password != form_data.password:
+    if not user or not pwd_context.verify(form_data.password, user.password):
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     access_token = jwt.encode({"sub": user.username, "exp": datetime.utcnow() + timedelta(hours=1)}, SECRET_KEY, algorithm="HS256")
     return {"access_token": access_token, "token_type": "bearer"}

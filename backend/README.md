@@ -14,7 +14,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the API:
+Run the API (set the `SECRET_KEY` environment variable first):
 
 ```bash
 uvicorn main:app --reload

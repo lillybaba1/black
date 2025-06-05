@@ -4,3 +4,4 @@ python-jose[cryptography]
 PyJWT
 transformers
 python-multipart
+passlib[bcrypt]
