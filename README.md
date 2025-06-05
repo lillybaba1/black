@@ -9,11 +9,14 @@ African youth.
 - `backend`: FastAPI application with JWT auth, posting, groups, WebSocket chat,
   and a simple AI-powered caption generator using HuggingFace transformers.
 - `frontend`: Minimal React application that displays posts from the backend.
+- `streamlit_app.py`: Simple Streamlit interface for interacting with the backend.
 
 ## Running Locally
 
 1. Start the backend (see `backend/README.md`).
 2. Start the frontend (see `frontend/README.md`).
+3. Run the Streamlit demo with `streamlit run streamlit_app.py` (install
+   dependencies from `streamlit_requirements.txt`).
 
 This project is highly experimental and only demonstrates a few features of the
 planned platform.
